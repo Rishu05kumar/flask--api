@@ -1,0 +1,47 @@
+<!-- templates/dashboard.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Dashboard</title>
+    <style>
+        table { width: 60%; border-collapse: collapse; }
+        th, td { padding: 10px; border: 1px solid #444; text-align: left; }
+    </style>
+</head>
+<body>
+    <h2>Welcome, {{ session.username }}!</h2>
+    <h3>Candidate List</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{user.password}}</td>
+                
+                <td>
+                    {% if user.id != current_user_id %}
+                    <form action="{{ url_for('delete_user', user_id=user.id) }}" method="post" style="display:inline;">
+                        <button type="submit" onclick="return confirm('Are you sure?')">Delete</button>
+                    </form>
+                    {% else %}
+                    <em>Logged-in user</em>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <br>
+    <a href="{{ url_for('logout') }}">Logout</a>
+</body>
+</html>

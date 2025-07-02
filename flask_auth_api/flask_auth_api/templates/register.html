@@ -1,0 +1,30 @@
+<!-- templates/register.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+</head>
+<body>
+    <h2>Register</h2>
+    <form method="POST">
+        <label>Username:</label><br>
+        <input type="text" name="username" required><br><br>
+        
+        <label>Password:</label><br>
+        <input type="password" name="password" required><br><br>
+
+        <input type="submit" value="Register">
+    </form>
+
+    <p>Already have an account? <a href="{{ url_for('login_web') }}">Login here</a>.</p>
+
+    <!-- ✅ Show flash messages in alert popup -->
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <script>
+          alert("{{ messages[0] }}");
+        </script>
+      {% endif %}
+    {% endwith %}
+</body>
+</html>
